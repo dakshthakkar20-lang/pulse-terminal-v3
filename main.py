@@ -1,1 +1,2 @@
-print("Pulse Terminal V3 Started Successfully")
+from scanner.test_scan import *
+print("Scanner completed")
