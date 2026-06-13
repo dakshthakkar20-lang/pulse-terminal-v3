@@ -10,3 +10,4 @@ df = yf.download(
 )
 
 print(df.tail())
+print("Data fetch successful")
