@@ -32,11 +32,10 @@ def calculate_score(emd, rsi):
 symbols = [
     "SBIN.NS",
     "RELIANCE.NS",
-    "TATAMOTORS.NS",
+    "TATAmotors.NS",
     "ICICIBANK.NS",
     "ZYDUSLIFE.NS"
 ]
-
 results = []
 
 for symbol in symbols:
