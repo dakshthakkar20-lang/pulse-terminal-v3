@@ -32,10 +32,13 @@ def calculate_score(emd, rsi):
 symbols = [
     "SBIN.NS",
     "RELIANCE.NS",
-    "TATAmotors.NS",
+    "HDFCBANK.NS",
     "ICICIBANK.NS",
-    "ZYDUSLIFE.NS"
+    "ZYDUSLIFE.NS",
+    "INFY.NS",
+    "TCS.NS"
 ]
+
 results = []
 
 for symbol in symbols:
@@ -57,5 +60,7 @@ for symbol in symbols:
 
 results.sort(key=lambda x: x["score"], reverse=True)
 
+print("\n=== PULSE TERMINAL SIGNALS ===")
 for r in results:
     print(r)
+print("==============================\n")
