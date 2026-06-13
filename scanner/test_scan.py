@@ -1,5 +1,7 @@
 import yfinance as yf
 import pandas as pd
+import json
+from datetime import datetime
 
 def emd_signal(close, length=28, mult=1.0):
     avg = close.rolling(length).mean()
@@ -30,13 +32,8 @@ def calculate_score(emd, rsi):
     return score
 
 symbols = [
-    "SBIN.NS",
-    "RELIANCE.NS",
-    "HDFCBANK.NS",
-    "ICICIBANK.NS",
-    "ZYDUSLIFE.NS",
-    "INFY.NS",
-    "TCS.NS"
+    "SBIN.NS", "RELIANCE.NS", "HDFCBANK.NS",
+    "ICICIBANK.NS", "ZYDUSLIFE.NS", "INFY.NS", "TCS.NS"
 ]
 
 results = []
@@ -60,7 +57,13 @@ for symbol in symbols:
 
 results.sort(key=lambda x: x["score"], reverse=True)
 
-print("\n=== PULSE TERMINAL SIGNALS ===")
-for r in results:
-    print(r)
-print("==============================\n")
+output = {
+    "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
+    "signals": results
+}
+
+with open("signals.json", "w") as f:
+    json.dump(output, f, indent=2)
+
+print("signals.json written successfully")
+print(json.dumps(output, indent=2))
