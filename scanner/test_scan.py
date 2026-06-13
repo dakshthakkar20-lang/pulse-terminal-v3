@@ -29,19 +29,34 @@ def calculate_score(emd, rsi):
         score += 50
     return score
 
-symbol = "SBIN.NS"
+symbols = [
+    "SBIN.NS",
+    "RELIANCE.NS",
+    "TATAMOTORS.NS",
+    "ICICIBANK.NS",
+    "ZYDUSLIFE.NS"
+]
 
-df = yf.download(symbol, period="30d", interval="5m", progress=False)
-close = df["Close"].squeeze()
+results = []
 
-emd = emd_signal(close)
-rsi = rsi_signal(close)
-score = calculate_score(emd, rsi)
-signal = "BUY" if score >= 70 else "SELL"
+for symbol in symbols:
+    try:
+        df = yf.download(symbol, period="30d", interval="5m", progress=False)
+        close = df["Close"].squeeze()
+        emd = emd_signal(close)
+        rsi = rsi_signal(close)
+        score = calculate_score(emd, rsi)
+        signal = "BUY" if score >= 70 else "SELL"
+        results.append({
+            "symbol": symbol,
+            "signal": signal,
+            "score": score,
+            "rsi": round(rsi, 2)
+        })
+    except Exception as e:
+        print(f"Error on {symbol}: {e}")
 
-print({
-    "symbol": symbol,
-    "signal": signal,
-    "score": score,
-    "rsi": round(rsi, 2)
-})
+results.sort(key=lambda x: x["score"], reverse=True)
+
+for r in results:
+    print(r)
