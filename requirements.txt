@@ -2,3 +2,5 @@ pandas
 numpy
 yfinance
 ta
+flask
+flask-cors
